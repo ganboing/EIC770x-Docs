@@ -57,7 +57,39 @@ target smp $_TARGETNAME_0 $_TARGETNAME_1 $_TARGETNAME_2 $_TARGETNAME_3
 
 init
 ```
-
+## JTAG0 OpenOCD Sample output
+```
+Open On-Chip Debugger 0.12.0-dirty (2024-08-21-02:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : clock speed 5000 kHz
+Info : JTAG tap: riscv.cpu tap/device found: 0x00000913 (mfg: 0x489 (SiFive Inc), part: 0x0000, ver: 0x0)
+Info : datacount=2 progbufsize=16
+Info : Disabling abstract command reads from CSRs.
+Info : Core 0 made part of halt group 1.
+Info : Examined RISC-V core; found 4 harts
+Info :  hart 0: XLEN=64, misa=0x80000000009411ad
+Info : datacount=2 progbufsize=16
+Info : Disabling abstract command reads from CSRs.
+Info : Core 1 made part of halt group 1.
+Info : Examined RISC-V core; found 4 harts
+Info :  hart 1: XLEN=64, misa=0x80000000009411ad
+Info : datacount=2 progbufsize=16
+Info : Disabling abstract command reads from CSRs.
+Info : Core 2 made part of halt group 1.
+Info : Examined RISC-V core; found 4 harts
+Info :  hart 2: XLEN=64, misa=0x80000000009411ad
+Info : datacount=2 progbufsize=16
+Info : Disabling abstract command reads from CSRs.
+Info : Core 3 made part of halt group 1.
+Info : Examined RISC-V core; found 4 harts
+Info :  hart 3: XLEN=64, misa=0x80000000009411ad
+Info : starting gdb server for riscv.cpu0 on 3333
+Info : Listening on port 3333 for gdb connections
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+```
 ## JTAG1:
 ```
 adapter speed 5000
@@ -80,7 +112,23 @@ target create $_TARGETNAME riscv -chain-position $_CHIPNAME.cpu
 
 init
 ```
-
+## JTAG1 OpenOCD Sample output
+```
+Open On-Chip Debugger 0.12.0-dirty (2024-08-21-02:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : clock speed 5000 kHz
+Info : JTAG tap: riscv.cpu tap/device found: 0x00002913 (mfg: 0x489 (SiFive Inc), part: 0x0002, ver: 0x0)
+Info : datacount=1 progbufsize=16
+Info : Disabling abstract command reads from CSRs.
+Info : Examined RISC-V core; found 1 harts
+Info :  hart 0: XLEN=32, misa=0x40901105
+Info : starting gdb server for riscv.cpu on 3333
+Info : Listening on port 3333 for gdb connections
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+```
 ## JTAG2:
 ```
 adapter speed 5000
@@ -104,4 +152,19 @@ jtag newtap dsp0 cpu -irlen $chain_length -expected-id 0x20a73001
 # Not sure how to create targets. They are possibly Tensilica Vision Q7
 
 init
+```
+## JTAG2 OpenOCD Sample output
+```
+Open On-Chip Debugger 0.12.0-dirty (2024-08-21-02:49)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : clock speed 5000 kHz
+Info : JTAG tap: dsp3.cpu tap/device found: 0x20a73007 (mfg: 0x003 (Fairchild), part: 0x0a73, ver: 0x2)
+Info : JTAG tap: dsp2.cpu tap/device found: 0x20a73005 (mfg: 0x002 (AMI), part: 0x0a73, ver: 0x2)
+Info : JTAG tap: dsp1.cpu tap/device found: 0x20a73003 (mfg: 0x001 (AMD), part: 0x0a73, ver: 0x2)
+Info : JTAG tap: dsp0.cpu tap/device found: 0x20a73001 (mfg: 0x000 (<invalid>), part: 0x0a73, ver: 0x2)
+Warn : gdb services need one or more targets defined
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
 ```
