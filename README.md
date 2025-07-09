@@ -20,6 +20,30 @@
 - JTAG1 has no reset pin
 - JTAG2 has TRST
 
+## Patch to Linux device-tree to retain pin mux:
+**Basically remove pinctrl_gpio7/8/9/10/17/64/65/66_default**
+**If not done, openocd will disconnect once pinctrl driver kicks in**
+```
+diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
+index 1c542a9e3c74..44735f82dd4c 100644
+--- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
++++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
+@@ -710,11 +710,11 @@ &timer3 {
+ &pinctrl {
+ 	status = "okay";
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_gpio6_default &pinctrl_gpio7_default &pinctrl_gpio8_default &pinctrl_gpio9_default
+-			&pinctrl_gpio10_default &pinctrl_gpio17_default &pinctrl_gpio35_default &pinctrl_gpio36_default
++	pinctrl-0 = <&pinctrl_gpio6_default
++			&pinctrl_gpio35_default &pinctrl_gpio36_default
+ 			&pinctrl_gpio37_default &pinctrl_gpio38_default &pinctrl_gpio39_default &pinctrl_gpio40_default
+ 			&pinctrl_gpio41_default &pinctrl_gpio46_default &pinctrl_gpio52_default
+-			&pinctrl_gpio53_default &pinctrl_gpio64_default &pinctrl_gpio65_default &pinctrl_gpio66_default
++			&pinctrl_gpio53_default
+ 			&pinctrl_gpio67_default &pinctrl_gpio70_default &pinctrl_gpio73_default &pinctrl_gpio83_default
+ 			&pinctrl_gpio86_default &pinctrl_gpio87_default &pinctrl_gpio92_default &pinctrl_gpio93_default>;
+```
+
 # OpenOCD configuration
 
 ## JTAG0:
