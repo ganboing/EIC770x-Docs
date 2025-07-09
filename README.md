@@ -13,4 +13,4 @@
 - JTAG2: GPIO 40pin
 
 ## External Connection of JTAG1/2
-![FT2232 connection](./ft2232-jtag.svg)
+![FT2232 connection](./ft2232-jtag.png)
