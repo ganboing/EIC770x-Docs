@@ -14,3 +14,8 @@
 
 ## External Connection of JTAG1/2
 ![FT2232 connection](./ft2232-jtag.png)
+- Above is the diagram connecting [FT2232H Mini Module](https://ftdichip.com/wp-content/uploads/2020/07/DS_FT2232H_Mini_Module.pdf)
+- Ensure VCC <-> VBUS is bridged
+- Ensure VCC3V3 <-> VIO is bridged
+- JTAG1 has no reset pin
+- JTAG2 has TRST
