@@ -12,7 +12,7 @@
 - [Board Schematic](./p550/HiFivePremierP550SOMSchematicv3.0.pdf)
 
 ## FTDI Docs
-- [FT4232 Datasheet](./ftdi/DS_FT4232H.pdf)
+- [FT4232 Datasheet](./ftdi/DS_FT4232H.pdf) (Used by onboard JTAG/UART to USB)
 - [FT2232 Datasheet](./ftdi/DS_FT2232H.pdf) (Used by external JTAG to SCPU/DSP)
 - [FT2232 Mini Module](./ftdi/DS_FT2232H_Mini_Module.pdf) (Used by external JTAG to SCPU/DSP)
 
