@@ -22,9 +22,9 @@
 
 ## Synopsys Docs
 - EIC770x integrates at least 3 crypto IPs from Synopsys
-- Security Protocol Accelerator (SPAcc) mapped at 0x51900000 (also 0x21900000 for SCPU)
-- Public Key Accelerator (PKA) mapped at 0x51b00000 (also 0x21b00000 for SCPU)
-- True Random Number Generator (TRNG) mapped at 0x51b08000 (also 0x21b08000 for SCPU)
+- Security Protocol Accelerator (SPAcc) mapped at `0x51900000` (also `0x21900000` for SCPU)
+- Public Key Accelerator (PKA) mapped at `0x51b00000` (also `0x21b00000` for SCPU)
+- True Random Number Generator (TRNG) mapped at `0x51b08000` (also `0x21b08000` for SCPU)
 - Datasheets are available on the internet
 
 ## JTAG chain on Hifive Premier P550:
