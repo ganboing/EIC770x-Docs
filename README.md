@@ -7,6 +7,9 @@
 - [Part4](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf) (PCIe/GMAC/USB/UART/I2C/I2S/SPI/GPIO/PWM)
 - [Combined](./eswin/EIC7700XSOC_Manual_V1p1_20250114.pdf) (All combined, but lacking some details compared to the previous ones)
 
+## Masked ROM Analysis/Reverse Engineering
+- See rom/ directory (in progress)
+
 ## HiFive P550 Schematics
 - [SOM Schematic](./p550/HiFivePremierP550CarrierBoardSchematicv3.0.pdf)
 - [Board Schematic](./p550/HiFivePremierP550SOMSchematicv3.0.pdf)
