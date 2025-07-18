@@ -17,6 +17,8 @@
 - [FT2232 Mini Module](./ftdi/DS_FT2232H_Mini_Module.pdf) (Used by external JTAG to SCPU/DSP)
 
 ## STM32 Docs
+- Refer to the stm32 directory for datasheets/manuals
+- P550 uses STM32F407VET6 as BMC
 
 ## JTAG chain on Hifive Premier P550:
 - JTAG_MCU: MCU (STM32)
