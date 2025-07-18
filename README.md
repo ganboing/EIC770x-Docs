@@ -29,7 +29,7 @@
 
 ## Masked ROM Analysis/Reverse Engineering
 - See rom/ directory (in progress)
-- 
+
 ## JTAG
 ### JTAG chain on Hifive Premier P550:
 - JTAG_MCU: MCU (STM32)
