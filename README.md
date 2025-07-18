@@ -1,5 +1,23 @@
 # EIC770x Documentation Collection
 
+## SoC Docs
+- [Part1](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part1.pdf) (Core and basic peripherals clock/reset/pinctrl/SMMU/MBOX/WDT/RTC/PVT)
+- [Part2](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part2.pdf) (LPDDR/EMMC/SDIO/SATA/Video Processing)
+- [Part3](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part3.pdf) (Video In/Out)
+- [Part4](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf) (PCIe/GMAC/USB/UART/I2C/I2S/SPI/GPIO/PWM)
+- [Combined](./eswin/EIC7700XSOC_Manual_V1p1_20250114.pdf) (All combined, but lacking some details compared to the previous ones)
+
+## HiFive P550 Schematics
+- [SOM Schematic](./p550/HiFivePremierP550CarrierBoardSchematicv3.0.pdf)
+- [Board Schematic](./p550/HiFivePremierP550SOMSchematicv3.0.pdf)
+
+## FTDI Docs
+- [FT4232 Datasheet](./ftdi/DS_FT4232H.pdf)
+- [FT2232 Datasheet](./ftdi/DS_FT2232H.pdf) (Used by external JTAG to SCPU/DSP)
+- [FT2232 Mini Module](./ftdi/DS_FT2232H_Mini_Module.pdf) (Used by external JTAG to SCPU/DSP)
+
+## STM32 Docs
+
 ## JTAG chain on Hifive Premier P550:
 - JTAG_MCU: MCU (STM32)
 - JTAG0: MCPU (4x P550 cluster) + LPCPU (1x E21) + NPU (10x E21)
@@ -13,8 +31,8 @@
 - JTAG2: GPIO 40pin
 
 ## External Connection of JTAG1/2
-![FT2232 connection](./ft2232-jtag.png)
-- Above is the diagram connecting [FT2232H Mini Module](https://ftdichip.com/wp-content/uploads/2020/07/DS_FT2232H_Mini_Module.pdf)
+![FT2232 connection](./p550/ft2232-jtag.png)
+- Above is the diagram connecting FT2232H Mini Module
 - Ensure VCC <-> VBUS is bridged
 - Ensure VCC3V3 <-> VIO is bridged
 - JTAG1 has no reset pin
