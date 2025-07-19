@@ -42,7 +42,15 @@
 | 10034000 | 9fcc000 | Error Device |
 | 1a000000 |  400000 | **L3 Zero Device** |
 | 1a400000 | 5c00000 | Error Device |
-| 20000000 | 20000000 | **Die 1 EIC7700X MCPU Internals** | Access 0-1a400000 on DIE1 through this window? |
-| 40000000 | 40000000 | **System Port 0 (1GB)** | DDR begin |
-| 80000000 | 7f_80000000 | **Memory Port 0 (512GB)** |
-| 80_00000000 | 180_00000000 | **System Port 1 (1.5TB)** |
+| 20000000 | 20000000 | **Die 1 EIC7700X MCPU Internals** | DIE1 0-1a400000 is mapped to this window through TL64D2D |
+| 40000000 | 20000000 | **System Port 0 (512M)** | DIE0 lower MMIO peripherals |
+| 60000000 | 20000000 | **System Port 0 (512M)** | DIE1 lower MMIO peripherals |
+|  0_80000000 | 1f_80000000 | **Memory Port 0 (126GB)** | DIE0 DRAM (Coherent) |
+| 20_00000000 | 20_00000000 | **Memory Port 0 (128GB)** | DIE1 DRAM (Coherent) |
+| 40_00000000 | 40_00000000 | **Memory Port 0 (256GB)** | DIE0/DIE1 Interleaved DRAM (Coherent) |
+| 80_00000000 | 20_00000000 | **System Port 1 (128GB)** | DIE0 higher MMIO peripherals |
+| a0_00000000 | 20_00000000 | **System Port 1 (128GB)** | DIE1 higher MMIO peripherals |
+| c0_00000000 | 20_00000000 | **System Port 1 (128GB)** | DIE0 DRAM (Non-Coherent) |
+| e0_00000000 | 20_00000000 | **System Port 1 (128GB)** | DIE1 DRAM (Non-Coherent) |
+| 100_00000000 | 40_00000000 | **System Port 1 (256GB)** | DIE0/DIE1 Interleaved DRAM (Non-Coherent) |
+| 140_00000000 | c0_00000000 | **System Port 1 (768GB)** | DIE0/DIE1 Local SRAM/MMIO/peripherals |
