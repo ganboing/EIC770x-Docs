@@ -5,12 +5,12 @@
 | ____1000 |    3000 | Error Device |
 | ____4000 |    1000 | **Test Status** |
 | ____5000 |   13000 | Error Device |
-| ___18000 |    1000 | **Trace Funnel** |
+| ___18000 |    1000 | **Trace Funnel** | Used by N-Trace |
 | ___19000 |   e7000 | Error Device |
-| __100000 |    1000 | **Hart 0 Trace Encoder** |
-| __101000 |    1000 | **Hart 1 Trace Encoder** |
-| __102000 |    1000 | **Hart 2 Trace Encoder** |
-| __103000 |    1000 | **Hart 3 Trace Encoder** |
+| __100000 |    1000 | **Hart 0 Trace Encoder** | Used by N-Trace |
+| __101000 |    1000 | **Hart 1 Trace Encoder** | Used by N-Trace |
+| __102000 |    1000 | **Hart 2 Trace Encoder** | Used by N-Trace |
+| __103000 |    1000 | **Hart 3 Trace Encoder** | Used by N-Trace |
 | __104000 |    4000 | **Hart 0 Private L2** |
 | __108000 |    4000 | **Hart 1 Private L2** |
 | __10c000 |    4000 | **Hart 2 Private L2** |
@@ -28,10 +28,10 @@
 | _1703000 |    1000 | **Hart 3 Bus Error Unit** |
 | _1704000 |  8fc000 | Error Device |
 | _2000000 |   10000 | **CLINT** |
-| _2010000 |    4000 | **Shared L3 Cache**   |
+| _2010000 |    4000 | **Shared L3 Cache** |
 | _2014000 | 5fec000 | Error Device |
-| _8000000 |  400000 | **L3 LIM** |
-| _8400000 | 3c00000 | Error Deviec |
+| _8000000 |  400000 | **L3 LIM** | Can only be used up to N ways that hasn't been enabled |
+| _8400000 | 3c00000 | Error Device |
 | _c000000 | 4000000 | **PLIC** |
 | 10000000 |    3000 | Error Device |
 | 10003000 |    1000 | Error Device |
@@ -42,7 +42,7 @@
 | 10034000 | 9fcc000 | Error Device |
 | 1a000000 |  400000 | **L3 Zero Device** |
 | 1a400000 | 5c00000 | Error Device |
-| 20000000 | 20000000 | **Die 1 EIC7700X MCPU Internals** |
-| 40000000 | 40000000 | **System Port 0 (1GB)** |
+| 20000000 | 20000000 | **Die 1 EIC7700X MCPU Internals** | Access 0-1a400000 on DIE1 through this window? |
+| 40000000 | 40000000 | **System Port 0 (1GB)** | DDR begin |
 | 80000000 | 7f_80000000 | **Memory Port 0 (512GB)** |
 | 80_00000000 | 180_00000000 | **System Port 1 (1.5TB)** |
