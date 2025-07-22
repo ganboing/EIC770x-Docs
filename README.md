@@ -27,6 +27,10 @@
 - True Random Number Generator (TRNG) mapped at `0x51b08000` (also `0x21b08000` for SCPU)
 - Datasheets are available on the internet
 
+# Memory map in detail
+- [P550 Core](./eswin/memory-map-p550.md)
+- [SoC](./eswin/memory-map-soc.md)
+
 ## Masked ROM Analysis/Reverse Engineering
 - See rom/ directory (in progress)
 
