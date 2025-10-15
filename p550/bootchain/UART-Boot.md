@@ -115,5 +115,30 @@ DDR type:LPDDR5;Size:16GB,Data Rate:6400MT/s
 DDR self test OK
 R................ER........................................................E
 ```
+
+#### JTAG openocd+gdb
 At this point the MCPU has been kicked and it's spinning at the first `c.j $pc` instruction.
-It's now a good time to attach JTAG with openocd. Refer to []
+It's now a good time to attach JTAG with openocd. Refer to [JTAG Guide](../../README.md#jtag)
+and [openocd config](../jtag/openocd_mcpu.cfg). Once the openocd has JTAG connected, gdb is
+easy:
+```
+$ gdb -ex 'target extended-remote :3333'
+GNU gdb (GDB) 14.1
+...
+0x0000000080000000 in ?? ()
+(gdb) info threads
+  Id   Target Id                                                      Frame 
+* 1    Thread 1 "riscv.cpu0" (Name: riscv.cpu0, state: debug-request) 0x0000000080000000 in ?? ()
+  2    Thread 2 "riscv.cpu1" (Name: riscv.cpu1, state: debug-request) 0x0000000080000000 in ?? ()
+  3    Thread 3 "riscv.cpu2" (Name: riscv.cpu2, state: debug-request) 0x0000000080000000 in ?? ()
+  4    Thread 4 "riscv.cpu3" (Name: riscv.cpu3, state: debug-request) 0x0000000080000000 in ?? ()
+(gdb) disassemble $pc,+8
+Dump of assembler code from 0x80000000 to 0x80000008:
+=> 0x0000000080000000:	j	0x80000000
+   0x0000000080000002:	j	0x80000000
+   0x0000000080000004:	j	0x80000000
+   0x0000000080000006:	j	0x80000000
+End of assembler dump.
+(gdb) 
+
+```
