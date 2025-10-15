@@ -45,20 +45,12 @@
 - JTAG2: DSP (4x Tensilica Vision Q7?)
 
 ### JTAG connections on Hifive Premier P550:
-- JTAG_MCU: FT4232 Channel B
-- JTAG0: FT4232 Channel A
+- JTAG_MCU: FT4232 Channel B (FT4232 is onboard)
+- JTAG0: FT4232 Channel A    (FT4232 is onboard)
 - JTAG1: GPIO 40pin
 - JTAG2: GPIO 40pin
 
-### External Connection of JTAG1/2
-![FT2232 connection](./p550/ft2232-jtag.png)
-- Above is the diagram connecting FT2232H Mini Module
-- Ensure VCC <-> VBUS is bridged
-- Ensure VCC3V3 <-> VIO is bridged
-- JTAG1 has no reset pin
-- JTAG2 has TRST
-
-### Patch to Linux device-tree to retain pin mux:
+### Patch to Linux device-tree to retain pin mux for live Linux Kernel debugging:
 **Basically remove pinctrl_gpio7/8/9/10/17/64/65/66_default**
 **If not done, openocd will disconnect once pinctrl driver kicks in**
 ```
@@ -119,6 +111,15 @@ Info : Listening on port 3333 for gdb connections
 Info : Listening on port 6666 for tcl connections
 Info : Listening on port 4444 for telnet connections
 ```
+## For Expert Users debugging SCPU/DSP through JTAG1/2
+### External Connection of JTAG1/2
+![FT2232 connection](./p550/ft2232-jtag.png)
+- Above is the diagram connecting FT2232H Mini Module
+- Ensure VCC <-> VBUS is bridged
+- Ensure VCC3V3 <-> VIO is bridged
+- JTAG1 has no reset pin
+- JTAG2 has TRST
+
 ### JTAG1
 - [openocd_scpu.cfg](./p550/jtag/openocd_scpu.cfg)
 - OpenOCD sample output
