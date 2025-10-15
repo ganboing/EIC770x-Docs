@@ -1,0 +1,3 @@
+[submodule "bootchain/sifive-release"]
+	path = p550/bootchain/sifive-release
+	url = https://github.com/sifive/hifive-premier-p550-tools.git
