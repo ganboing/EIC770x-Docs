@@ -8,11 +8,11 @@
 - [Combined](./eswin/EIC7700XSOC_Manual_V1p1_20250114.pdf) (All combined, but lacking some details compared to the previous ones)
 
 ## New!! HiFive P550 UART Boot for OpenSBI/U-Boot/EDK2 developers
-- [README](./p550/bootchain/UART-Boot.md)
+- [README](./board/bootchain/UART-Boot.md)
 
 ## HiFive P550 Schematics
-- [SOM Schematic](./p550/HiFivePremierP550CarrierBoardSchematicv3.0.pdf)
-- [Board Schematic](./p550/HiFivePremierP550SOMSchematicv3.0.pdf)
+- [SOM Schematic](./board/HiFivePremierP550CarrierBoardSchematicv3.0.pdf)
+- [Board Schematic](./board/HiFivePremierP550SOMSchematicv3.0.pdf)
 
 ## FTDI Docs
 - [FT4232 Datasheet](./ftdi/DS_FT4232H.pdf) (Used by onboard JTAG/UART to USB)
@@ -113,7 +113,7 @@ Info : Listening on port 4444 for telnet connections
 ```
 ## For Expert Users debugging SCPU/DSP through JTAG1/2
 ### External Connection of JTAG1/2
-![FT2232 connection](./p550/ft2232-jtag.png)
+![FT2232 connection](./board/ft2232-jtag.png)
 - Above is the diagram connecting FT2232H Mini Module
 - Ensure VCC <-> VBUS is bridged
 - Ensure VCC3V3 <-> VIO is bridged
@@ -121,7 +121,7 @@ Info : Listening on port 4444 for telnet connections
 - JTAG2 has TRST
 
 ### JTAG1
-- [openocd_scpu.cfg](./p550/jtag/openocd_scpu.cfg)
+- [openocd_scpu.cfg](./board/jtag/openocd_scpu.cfg)
 - OpenOCD sample output
 ```
 Open On-Chip Debugger 0.12.0-dirty (2024-08-21-02:49)
@@ -140,7 +140,7 @@ Info : Listening on port 6666 for tcl connections
 Info : Listening on port 4444 for telnet connections
 ```
 ### JTAG2:
-- [openocd_dsp.cfg](./p550/jtag/openocd_dsp.cfg)
+- [openocd_dsp.cfg](./board/jtag/openocd_dsp.cfg)
 - OpenOCD sample output
 ```
 Open On-Chip Debugger 0.12.0-dirty (2024-08-21-02:49)
