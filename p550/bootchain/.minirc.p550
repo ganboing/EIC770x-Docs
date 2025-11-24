@@ -1,0 +1,5 @@
+# Machine-generated file - use setup menu in minicom to change parameters.
+pu port             /dev/serial/by-id/usb-FTDI_Quad_RS232-HS-if02-port0
+pu updir            EIC770x-Docs/p550/bootchain/uart
+pu rtscts           No
+pu xonxoff          Yes
