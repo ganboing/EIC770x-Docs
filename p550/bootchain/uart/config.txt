@@ -2,7 +2,7 @@
  bootchain_link_addr=3000c000
  out=bootchain.ihex
  {
- in=../sifive-release/second_boot_fw//second_boot_fw.bin
+ in=../archive/hifive-premier-p550-tools/second_boot_fw-20240802.bin
  sign_link_addr=30008000
  image_link_addr=30008000
  boot_flags=SCPU
@@ -35,7 +35,7 @@
  dl_irq_ofs=00000000
  }
  {
- in=../sifive-release/ddr-fw/ddr_fw.bin
+ in=../archive/hifive-premier-p550-tools/ddr_fw-1.3.xzloader.bin
  sign_link_addr=59000000
  image_link_addr=59000000
  boot_flags=SCPU
