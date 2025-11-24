@@ -1,11 +1,11 @@
 # EIC770x Documentation Collection
 
 ## SoC Docs
-- [Part1](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part1.pdf) (Core and basic peripherals clock/reset/pinctrl/SMMU/MBOX/WDT/RTC/PVT)
-- [Part2](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part2.pdf) (LPDDR/EMMC/SDIO/SATA/Video Processing)
-- [Part3](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part3.pdf) (Video In/Out)
-- [Part4](./eswin/EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf) (PCIe/GMAC/USB/UART/I2C/I2S/SPI/GPIO/PWM)
-- [Combined](./eswin/EIC7700XSOC_Manual_V1p1_20250114.pdf) (All combined, but lacking some details compared to the previous ones)
+- [Part1](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part1.pdf) (Core and basic peripherals clock/reset/pinctrl/SMMU/MBOX/WDT/RTC/PVT)
+- [Part2](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part2.pdf) (LPDDR/EMMC/SDIO/SATA/Video Processing)
+- [Part3](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part3.pdf) (Video In/Out)
+- [Part4](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf) (PCIe/GMAC/USB/UART/I2C/I2S/SPI/GPIO/PWM)
+- [Combined](./soc/EIC7700XSOC_Manual_V1p1_20250114.pdf) (All combined, but lacking some details compared to the previous ones)
 
 ## New!! HiFive P550 UART Boot for OpenSBI/U-Boot/EDK2 developers
 - [README](./board/bootchain/UART-Boot.md)
@@ -31,8 +31,8 @@
 - Datasheets are available on the internet
 
 # Memory map in detail
-- [P550 Core](./eswin/memory-map-p550.md)
-- [SoC](./eswin/memory-map-soc.md)
+- [P550 Core](./soc/memory-map-p550.md)
+- [SoC](./soc/memory-map-soc.md)
 
 ## Masked ROM Analysis/Reverse Engineering
 - See rom/ directory (in progress)
