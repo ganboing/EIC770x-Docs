@@ -212,7 +212,7 @@ _start () at .../firmware/fw_base.S:50
 Now you can playaround with breakpoints, step/resume...
 Note: It's better to use `hbreak` to set breakpoints in OpenSBI.
 
-#### Backup: Automate booting (using screen)
+#### Backup: Automate booting (for scripting)
 ```
 $ ./boot-uart.sh uart/bootchain.ihex
 About to transfer bootchain image...
