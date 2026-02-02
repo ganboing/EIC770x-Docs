@@ -1,15 +1,15 @@
  cmd=chief_sign
  out=bootchain.bin
  {
- in=FIRMWARE.bin
+ in=second_boot_fw.bin
  boot_flags=SCPU
  payload_type=FIRMWARE
  sign_algorithm=plaintext
  keyid=00
  version=00000001
  link_addr=00000000
- load_addr=59000000
- entry_addr=59000000
+ load_addr=30008000
+ entry_addr=30008000
  payload_flags=plaintext
  digest_mthd=SHA
  encrypted_mthd=plaintext
@@ -27,7 +27,7 @@
  dl_irq_ofs=00000000
  }
  {
- in=DDR.bin
+ in=ddr.bin
  boot_flags=SCPU
  payload_type=DDR
  sign_algorithm=plaintext
@@ -53,7 +53,7 @@
  dl_irq_ofs=00000000
  }
  {
- in=BOOTLOADER.bin
+ in=bootloader.bin
  boot_flags=MCPU
  payload_type=BOOTLOADER
  sign_algorithm=plaintext
@@ -63,7 +63,7 @@
  load_addr=80000000
  entry_addr=80000000
  payload_flags=plaintext
- digest_mthd=SHA
+ digest_mthd=SM3
  encrypted_mthd=plaintext
  devid=0000000000000000
  vid=00
