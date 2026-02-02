@@ -19,7 +19,7 @@ For bootloader developers, such as OpenSBI/U-Boot or EDK2, it might be helpful t
 at will, and b. start JTAG debugging as early as possible. EIC7700(X)/P550 has the ability to boot from UART.
 In UART boot mode, the bootchain image is read from UART, bypassing boot SPI. Hence, there's zero possibility
 of bricking the device. UART boot mode requires a slightly modified version of `nsign` configuration,
-which is provided here [config.txt](https://github.com/ganboing/EIC770x-Docs/blob/main/p550/bootchain/uart/config.txt)
+which is provided here [config.txt](./uart/config.txt)
 I also did a trick to use a dummy bootload payload which spins the MCPU such that you can JTAG debug from the
 very first instruction. 
 
@@ -61,8 +61,8 @@ $ cd build && cmake ../ && cmake --build .
 ```
 #### Build bootchain image for UART boot
 ```
-$ git submodule update --init
-$ PATH="<path-to-nsign>/build/src:$PATH" make
+$ cd uart
+$ PATH="<path-to-nsign>/build/src:$PATH" nsign
 ```
 #### Verify bootchain image
 Make sure it looks something like this
@@ -82,10 +82,138 @@ $ head -n20 uart/bootchain.ihex
 :10800000575345BB000000000000000000000000C6
 ...
 ```
-#### Ready to boot
+#### Ready to boot (using minicom, preferred for debugging)
+First modify the `pu updir` field in `.minirc.p550` to point to the current directory (full path)
+Then, copy it to your home directory.
+Configure option `pu xonxoff` is crucial in this file. It enables software flow control, such that
+we don't overwhelm the ROM code with data on serial port when it's not ready to receive it.
 ```
-$ make boot-uart 
-./boot-uart.sh uart/bootchain.ihex
+# First reset the board, and
+$ minicom p550
+```
+Notice that you won't be seeing any output except for the minicom banner. This is expected
+```
+Welcome to minicom 2.8
+
+OPTIONS: I18n 
+Port /dev/serial/by-id/usb-FTDI_Quad_RS232-HS-if02-port0
+
+Press CTRL-A Z for help on special keys
+```
+Now, Ctrl-A s, and send the `bootchain.ihex` using the ascii method
+```
+ +-[Upload]--+
+ | zmodem    |
+ | ymodem    |
+ | xmodem    |
+ | kermit    |
+ | ascii     |
+ +-----------+
+```
+Once it starts uploading, You'll observe the `ER...ER...Epll` string coming up pretty quickly.
+This is good indication that the upload is working.
+```
++----------------[ascii upload - Press CTRL-C to quit]-----------------+
+|ASCII upload of "bootchain.ihex"                                      |
+|                                                                      |
+|xxx Kbytes transferred at xx CPSR..ER....ER......................Epll |
+|config ok                                                             |
+|205.9 Kbytes transferred at 5141 CPS... Done.                         |
+|                                                                      |
+| READY: press any key to continue...                                  |
++----------------------------------------------------------------------+
+```
+The uploading typically finishes in ~30s.
+Make sure you see the `READY: press any key to continue...`, then press any key.
+```
+Welcome to minicom 2.8
+
+OPTIONS: I18n
+Port /dev/serial/by-id/usb-FTDI_Quad_RS232-HS-if02-port0
+
+Press CTRL-A Z for help on special keys
+                 
+.E
+```
+Notice the `.E` at the end. The `E` indicates the end of a bootchain component read (not error).
+At this point, secondary boot and DDR init are all done, and the 64-bit MCPU has been kicked and
+it's spinning at the first `c.j $pc` instruction. It's now ready for us to upload the bootloader (opensbi+u-boot)
+
+#### JTAG upload
+If you just want to upload the bootloader `fw_payload.elf` and let it run, just open a separate terminal, and
+```
+$ ./openocd-load.sh .../platform/generic/firmware/fw_payload.elf
+Open On-Chip Debugger 0.12.0+dev-02088-gcbc32c383-dirty (2025-12-09-09:43)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+Info : [riscv.cpu0] Hardware thread awareness created
+Info : clock speed 5000 kHz
+Info : JTAG tap: riscv.cpu tap/device found: 0x00000913 (mfg: 0x489 (SiFive Inc), part: 0x0000, ver: 0x0)
+...
+Info : datacount=2 progbufsize=16
+Info : Disabling abstract command reads from CSRs.
+Info : Core 3 made part of halt group 1.
+Info : Examined RISC-V core; found 4 harts
+Info :  hart 3: XLEN=64, misa=0x80000000009411ad
+Info : [riscv.cpu3] Examination succeed
+Info : [riscv.cpu0] starting gdb server on 3333
+Info : Listening on port 3333 for gdb connections
+Info : Disabling abstract command writes to CSRs.
+Info : Disabling abstract command writes to CSRs.
+Info : Disabling abstract command writes to CSRs.
+Info : Disabling abstract command writes to CSRs.
+260880 bytes written at address 0x80000000
+13744 bytes written at address 0x80040000
+1902664 bytes written at address 0x80200000
+downloaded 2177288 bytes in 14.378442s (147.878 KiB/s)
+```
+You should see on the `minicom` terminal the opensbi/u-boot prints. If not, then it very likely crashed on early boot.
+Follow the next section for debugging.
+
+#### JTAG gdb debugging
+In separate terminal:
+```
+$ ./openocd-debug.sh .../platform/generic/firmware/fw_payload.elf
+Open On-Chip Debugger 0.12.0+dev-02088-gcbc32c383-dirty (2025-12-09-09:43)
+...
+260880 bytes written at address 0x80000000
+13744 bytes written at address 0x80040000
+1902664 bytes written at address 0x80200000
+downloaded 2177288 bytes in 14.334698s (148.329 KiB/s)
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+```
+In another separate terminal:
+```
+$ riscv64-unknown-linux-gnu-gdb -ex 'target extended-remote :3333' .../platform/generic/firmware/fw_payload.elf
+GNU gdb (GDB) 16.3.90.20250610-git
+Copyright (C) 2024 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "--host=x86_64-pc-linux-gnu --target=riscv64-unknown-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<https://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from platform/generic/firmware/fw_payload.elf...
+Remote debugging using :3333
+_start () at .../firmware/fw_base.S:50
+50		MOV_3R	s0, a0, s1, a1, s2, a2
+(gdb)
+```
+Now you can playaround with breakpoints, step/resume...
+Note: It's better to use `hbreak` to set breakpoints in OpenSBI.
+
+#### Backup: Automate booting (using screen)
+```
+$ ./boot-uart.sh uart/bootchain.ihex
 About to transfer bootchain image...
 Make sure your board is reset properly, and press Enter (Ctrl-c to abort)
 R........ER................ER........................Epll config ok
@@ -114,31 +242,4 @@ PHY1 training process:100%
 DDR type:LPDDR5;Size:16GB,Data Rate:6400MT/s
 DDR self test OK
 R................ER........................................................E
-```
-
-#### JTAG openocd+gdb
-At this point the MCPU has been kicked and it's spinning at the first `c.j $pc` instruction.
-It's now a good time to attach JTAG with openocd. Refer to [JTAG Guide](../../README.md#jtag)
-and [openocd config](../jtag/openocd_mcpu.cfg). Once the openocd has JTAG connected, gdb is
-easy:
-```
-$ gdb -ex 'target extended-remote :3333'
-GNU gdb (GDB) 14.1
-...
-0x0000000080000000 in ?? ()
-(gdb) info threads
-  Id   Target Id                                                      Frame 
-* 1    Thread 1 "riscv.cpu0" (Name: riscv.cpu0, state: debug-request) 0x0000000080000000 in ?? ()
-  2    Thread 2 "riscv.cpu1" (Name: riscv.cpu1, state: debug-request) 0x0000000080000000 in ?? ()
-  3    Thread 3 "riscv.cpu2" (Name: riscv.cpu2, state: debug-request) 0x0000000080000000 in ?? ()
-  4    Thread 4 "riscv.cpu3" (Name: riscv.cpu3, state: debug-request) 0x0000000080000000 in ?? ()
-(gdb) disassemble $pc,+8
-Dump of assembler code from 0x80000000 to 0x80000008:
-=> 0x0000000080000000:	j	0x80000000
-   0x0000000080000002:	j	0x80000000
-   0x0000000080000004:	j	0x80000000
-   0x0000000080000006:	j	0x80000000
-End of assembler dump.
-(gdb) 
-
 ```
