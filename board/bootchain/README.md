@@ -22,7 +22,7 @@ loads BOOTLOADER to DDR and handoff to MCPU.
 ### Building
 The most stable "BOOTLOADER" so far is the OpenSBI+U-Boot combination. It's technically incorrect to use the term
 BOOTLOADER here, as OpenSBI is arguably the most important piece of code that provide M mode SBI at runtime, THE
-*firmware* essentiall, but we keep using ESWIN's terms here.
+*firmware* essentially, but we keep using ESWIN's terms here.
 
 #### Getting the sources
 * For OpenSBI, I've already added full support to upstream. Pick the most stable version
@@ -90,5 +90,5 @@ For bootloader developers, it might be helpful to
 * Start JTAG debugging at the first instruction
 
 Check out these 2 methods I prepared for you:
-* [UART boot](./UART-Boot.md) (Great for casual testing and resue a bricked device)
+* [UART boot](./UART-Boot.md) (Great for casual testing and rescue a bricked device)
 * [JTAG-ready image](./JTAG-Ready.md) (Great for heavy testing/debugging and CI)

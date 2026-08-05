@@ -27,5 +27,5 @@ DDR type:LPDDR5;Size:16GB,Data Rate:6400MT/s
 DDR self test OK
 ```
 
-At this point, you can use JTAG to upload and kickstart or being debugging the MCPU.
+At this point, you can use JTAG to upload and just let MCPU run or begin debugging.
 Refer to [JTAG upload](./UART-Boot.md#jtag-upload) and [JTAG GDB](./UART-Boot.md#jtag-gdb-debugging)
