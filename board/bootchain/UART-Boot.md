@@ -1,28 +1,14 @@
 ## HiFive P550 UART Boot Guide
 
-Some background regarding P550 bootflow. For P550, it's a 1 DIE configuration (EIC7702 is 2 DIE).
-Thus, the stock stable bootchain (w/o secure boot) comes only with 3 parts:
-
-- Secondary Boot aka. "FIRMWARE": A tiny blob right after firmware to do basic initialization, such as PLL clock.
-- DDR Init aka. "DDR": Blob for initializing DDR memory. Ver. 1.3 is the smallest blob with size ~270KB.
-- U-Boot/OpenSBI payload aka. "BOOTLOADER": The actual bootloader.
-
-These parts are packaged in a container image (bootchain) with ESWIN custom format that's similar to tar/cpio.
-The program `nsign` is used to generate such container image. For each component in the image, there's
-also metadata to describe its type FIRMWARE/DDR/BOOTLOADER, the load and entry point address, and the
-CPU (SCPU or MCPU) that's responsible for running it. In regular boot configuration, such image is
-flashed to boot SPI, and DIP switches are set to `[0 0 1 0]`. After power-on, the SCPU (32bit) starts
-executing Masked ROM, where there's logic to check DIP switch states and parse, then load the blobs
-from the bootchain and invoke them in a pre-defined order: FIRMWARE->DDR->BOOTLOADER
-
-For bootloader developers, such as OpenSBI/U-Boot or EDK2, it might be helpful to a. replace the "BOOTLOADER"
-at will, and b. start JTAG debugging as early as possible. EIC7700(X)/P550 has the ability to boot from UART.
+EIC7700(X) has the ability to boot from UART.
 In UART boot mode, the bootchain image is read from UART, bypassing boot SPI. Hence, there's zero possibility
-of bricking the device. UART boot mode requires a slightly modified version of `nsign` configuration, which is
-provided here [config.txt](./uart/config.txt) I managed to compress the DDR init blob with xz, and use a inplace
+of bricking the device, and you can also rescue a board with corrupted SPI in this manner. UART boot mode requires
+a slightly modified `nsign` configuration, which is provided here [config.txt](./uart/config.txt)
+
+To speed things up, I managed to compress the DDR init blob with xz, and use an inplace
 [xz-decompress loader](https://github.com/ganboing/xz-loader) to reduce the size to < 80KB, which greatly reduce
-the time loading the binary blobs through UART. I also did a trick to use a dummy bootload payload which spins
-the MCPU such that you can JTAG debug from the very first instruction. 
+the time loading the binary blobs through UART. Once DDR training is finished, I'll hang the MCPU to make it ready
+for JTAG connection. From there, you have full control over JTAG (OpenOCD).
 
 ### Instruction
 #### Setup Boot Mode
@@ -53,13 +39,7 @@ Set the DIP switch to Software Controlled and with value `[0 0 0 0]` (Boot from 
 #cmd: bootsel-s sw 0
 Set: Bootsel Controlled by: SW, bootsel[3 2 1 0]:0 0 0 0
 ```
-#### Build nsign
-```
-# In some out-of-tree directory
-$ git clone https://github.com/eswincomputing/Esbd-77serial-nsign.git
-$ mkdir -p build
-$ cd build && cmake ../ && cmake --build .
-```
+
 #### Build bootchain image for UART boot
 ```
 $ cd uart
