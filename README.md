@@ -7,8 +7,8 @@
 - [Part4](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf) (PCIe/GMAC/USB/UART/I2C/I2S/SPI/GPIO/PWM)
 - [Combined](./soc/EIC7700XSOC_Manual_V1p1_20250114.pdf) (All combined, but lacking some details compared to the previous ones)
 
-## New!! HiFive P550 UART Boot for OpenSBI/U-Boot/EDK2 developers
-- [README](./board/bootchain/UART-Boot.md)
+## New!! EIC7700 Firmware Hacking Guide
+- [README](./board/bootchain/README.md)
 
 ## HiFive P550 Schematics
 - [SOM Schematic](./board/HiFivePremierP550CarrierBoardSchematicv3.0.pdf)
