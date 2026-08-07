@@ -22,7 +22,24 @@ The part that's missing is the DIE-to-DIE Serdes, "D2D" mentioned in some ESWIN 
 - [Part4](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf) (PCIe/GMAC/USB/UART/I2C/I2S/SPI/GPIO/PWM)
 - [Combined](./soc/EIC7700XSOC_Manual_V1p1_20250114.pdf) (All combined, but lacking some details compared to the previous ones)
 
-## HiFive P550 Schematics
+## Memory map in detail
+- [P550 Core](./soc/memory-map-p550.md)
+- [SoC](./soc/memory-map-soc.md)
+
+## Masked ROM Dump
+- See [rom/](./rom/) directory
+
+## Synopsys Docs
+- EIC770x integrates at least 3 crypto IPs from Synopsys
+- Security Protocol Accelerator (SPAcc) mapped at `0x51900000` (also `0x21900000` for SCPU)
+- Public Key Accelerator (PKA) mapped at `0x51b00000` (also `0x21b00000` for SCPU)
+- True Random Number Generator (TRNG) mapped at `0x51b08000` (also `0x21b08000` for SCPU)
+- Datasheets are available on the internet
+
+---
+# Board, BMC and UART converters
+
+## HiFive Premier P550 Schematics
 - [SOM Schematic](./board/HiFivePremierP550CarrierBoardSchematicv3.0.pdf)
 - [Board Schematic](./board/HiFivePremierP550SOMSchematicv3.0.pdf)
 
@@ -32,22 +49,8 @@ The part that's missing is the DIE-to-DIE Serdes, "D2D" mentioned in some ESWIN 
 - [FT2232 Mini Module](./ftdi/DS_FT2232H_Mini_Module.pdf) (Used by external JTAG to SCPU/DSP)
 
 ## STM32 Docs
-- Refer to the stm32 directory for datasheets/manuals
+- Refer to the [stm32](./stm32) directory for datasheets/manuals
 - P550 uses STM32F407VET6 as BMC
-
-## Synopsys Docs
-- EIC770x integrates at least 3 crypto IPs from Synopsys
-- Security Protocol Accelerator (SPAcc) mapped at `0x51900000` (also `0x21900000` for SCPU)
-- Public Key Accelerator (PKA) mapped at `0x51b00000` (also `0x21b00000` for SCPU)
-- True Random Number Generator (TRNG) mapped at `0x51b08000` (also `0x21b08000` for SCPU)
-- Datasheets are available on the internet
-
-# Memory map in detail
-- [P550 Core](./soc/memory-map-p550.md)
-- [SoC](./soc/memory-map-soc.md)
-
-## Masked ROM Dump
-- See rom/ directory
 
 ## JTAG
 ### JTAG chain on Hifive Premier P550:
