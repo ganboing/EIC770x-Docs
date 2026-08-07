@@ -36,6 +36,7 @@
 
 ## Masked ROM Analysis/Reverse Engineering
 - See rom/ directory (in progress)
+- Also check out the great work done by Stefan Holst: https://github.com/s-holst/fml13v03-notes/tree/main/firmware
 
 ## JTAG
 ### JTAG chain on Hifive Premier P550:
