@@ -1,5 +1,10 @@
 # EIC770x Documentation Collection
 
+## What is EIC770x?
+EIC770x stands for ESWIN's [EIC7700](https://www.eswincomputing.com/bocupload/2024/06/07/171773119629660z9pt.pdf) and [EIC7702](https://www.eswincomputing.com/bocupload/2024/06/07/171773121542019z1u1.pdf) SoC. EIC7700 is the single DIE version, whereas the EIC7702 is essentially 2 EIC7700 DIEs on the same substrate
+
+<img src="./soc/eic7700-in-ebc77.jpg" alt="EBC77 (ESWIN Amazon Store)" width="190" height="300"> <img src="./soc/eic7702-in-dc-doma2.jpg" alt="DC ROMA II (Jeff Geerling)" width="466" height="311">
+
 ## SoC Docs
 - [Part1](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part1.pdf) (Core and basic peripherals clock/reset/pinctrl/SMMU/MBOX/WDT/RTC/PVT)
 - [Part2](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part2.pdf) (LPDDR/EMMC/SDIO/SATA/Video Processing)
