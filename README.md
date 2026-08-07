@@ -1,9 +1,19 @@
 # EIC770x Documentation Collection
 
 ## What is EIC770x?
-EIC770x stands for ESWIN's [EIC7700](https://www.eswincomputing.com/bocupload/2024/06/07/171773119629660z9pt.pdf) and [EIC7702](https://www.eswincomputing.com/bocupload/2024/06/07/171773121542019z1u1.pdf) SoC. EIC7700 is the single DIE version, whereas the EIC7702 is essentially 2 EIC7700 DIEs on the same substrate
+EIC770x stands for ESWIN's [EIC7700](https://www.eswincomputing.com/bocupload/2024/06/07/171773119629660z9pt.pdf) and [EIC7702](https://www.eswincomputing.com/bocupload/2024/06/07/171773121542019z1u1.pdf) SoC. EIC7700 is the single DIE version, whereas the EIC7702 is essentially 2 identical EIC7700 DIEs on the same substrate.
 
 <img src="./soc/eic7700-in-ebc77.jpg" alt="EBC77 (ESWIN Amazon Store)" width="190" height="300"> <img src="./soc/eic7702-in-dc-doma2.jpg" alt="DC ROMA II (Jeff Geerling)" width="466" height="311">
+
+For EIC7702, you get double the cores and peripherals of EIC7700, mapped interleaved. You also get 2 PLIC interrupt controllers, each responsible for its own DIE. It's a pretty straightforward design. The peripherals in the datasheet for EIC7700 can seamlessly apply for EIC7702, except their base addresses are offsetted differently in DIE 0 and DIE 1 (from RISCV cores POV).
+
+The part that's missing is the DIE-to-DIE Serdes, "D2D" mentioned in some ESWIN Docs, which ESWIN hasn't made public yet. It's responsible for all cross DIE communications. You can check out some [RE done by Stefan Holst](https://github.com/s-holst/fml13v03-notes/tree/main/firmware#bootspi---d2d) regarding D2D. If you plan to get an EIC770x chip for experiments, I'd recommend using the single-DIE version. The D2D injects significant amount of latency (My [analysis](https://github.com/geerlingguy/sbc-reviews/issues/82#issuecomment-3565169651)), and very temperature sensitive. You might run into some stability issues with the dual-DIE EIC7702.
+
+## New!! EIC7700 Firmware Hacking Guide
+- [README](./board/bootchain/README.md)
+
+## New!! EIC7702/fml13v03 (DC ROMA II) Reverse Engineering by Stefan Holst
+- [Notes](https://github.com/s-holst/fml13v03-notes/blob/main/firmware/README.md)
 
 ## SoC Docs
 - [Part1](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part1.pdf) (Core and basic peripherals clock/reset/pinctrl/SMMU/MBOX/WDT/RTC/PVT)
@@ -11,9 +21,6 @@ EIC770x stands for ESWIN's [EIC7700](https://www.eswincomputing.com/bocupload/20
 - [Part3](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part3.pdf) (Video In/Out)
 - [Part4](./soc/EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf) (PCIe/GMAC/USB/UART/I2C/I2S/SPI/GPIO/PWM)
 - [Combined](./soc/EIC7700XSOC_Manual_V1p1_20250114.pdf) (All combined, but lacking some details compared to the previous ones)
-
-## New!! EIC7700 Firmware Hacking Guide
-- [README](./board/bootchain/README.md)
 
 ## HiFive P550 Schematics
 - [SOM Schematic](./board/HiFivePremierP550CarrierBoardSchematicv3.0.pdf)
@@ -39,9 +46,8 @@ EIC770x stands for ESWIN's [EIC7700](https://www.eswincomputing.com/bocupload/20
 - [P550 Core](./soc/memory-map-p550.md)
 - [SoC](./soc/memory-map-soc.md)
 
-## Masked ROM Analysis/Reverse Engineering
-- See rom/ directory (in progress)
-- Also check out the great work done by Stefan Holst: https://github.com/s-holst/fml13v03-notes/tree/main/firmware
+## Masked ROM Dump
+- See rom/ directory
 
 ## JTAG
 ### JTAG chain on Hifive Premier P550:
